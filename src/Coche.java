@@ -10,10 +10,12 @@ public class Coche {
     Integer velocidad;
     /** Kilómetros totales recorridos por el coche. */
     double kilometrosRecorridos;
+    /** Litros de gasolina actuales del coche. */
+    double gasolina;
 
     /**
      * Constructor que crea un coche con modelo y matrícula.
-     * La velocidad inicial es 0 y los kilómetros recorridos 0.
+     * La velocidad, kilómetros y gasolina son 0 inicialmente.
      * @param modelo modelo del coche
      * @param matricula matrícula identificadora única
      */
@@ -22,5 +24,6 @@ public class Coche {
         this.matricula = matricula;
         this.velocidad = 0;
         this.kilometrosRecorridos = 0;
+        this.gasolina = 0;
     }
 }

@@ -1,6 +1,5 @@
 /**
  * Clase controladora que coordina la View y el Model.
- * Gestiona el flujo principal de la aplicación.
  */
 public class Controller {
 
@@ -11,17 +10,15 @@ public class Controller {
 
     /**
      * Método principal que inicia la aplicación.
+     * @param args argumentos de línea de comandos (no utilizados)
      */
     public static void main(String[] args) {
-        // Crear tres coches de ejemplo
         miModel.crearCoche("LaFerrari", "SBC 1234");
         miModel.crearCoche("Alpine", "HYU 4567");
         miModel.crearCoche("Aston Martin", "FGH 3333");
 
-        // Modifica la velocidad del ferrari
         miModel.cambiarVelocidad("SBC 1234", 30);
 
-        // Muestra la velocidad inicial
         boolean hecho = miView.muestraVelocidad("SBC 1234", miModel.getVelocidad("SBC 1234"));
         if (hecho) {
             System.out.println("[LOG] Correcto");
@@ -29,7 +26,6 @@ public class Controller {
             System.out.println("[LOG] Error");
         }
 
-        // Menú principal
         int opcion = miView.mostrarMenu();
 
         switch (opcion) {
@@ -40,26 +36,37 @@ public class Controller {
                 break;
 
             case 2:
-                String matricula = miView.mostrarVelocidad();
-                Coche coche = miModel.getCoche(matricula);
-                if (coche != null) {
-                    miView.muestraVelocidad(matricula, miModel.getVelocidad(matricula));
+                String matricula2 = miView.mostrarVelocidad();
+                if (miModel.getCoche(matricula2) != null) {
+                    miView.muestraVelocidad(matricula2, miModel.getVelocidad(matricula2));
                 } else {
-                    miView.mostrarErrorCocheNoEncontrado(matricula);
+                    miView.mostrarErrorCocheNoEncontrado(matricula2);
                 }
                 main(args);
                 break;
 
             case 3:
                 String[] datosAvanzar = miView.pedirDatosAvanzar();
-                String matriculaAvanzar = datosAvanzar[0];
-                Coche cocheAvanzar = miModel.getCoche(matriculaAvanzar);
-                if (cocheAvanzar != null) {
+                String matricula3 = datosAvanzar[0];
+                if (miModel.getCoche(matricula3) != null) {
                     double metros = Double.parseDouble(datosAvanzar[1]);
-                    double kmTotales = miModel.avanzar(matriculaAvanzar, metros);
-                    miView.mostrarKilometros(matriculaAvanzar, kmTotales);
+                    double kmTotales = miModel.avanzar(matricula3, metros);
+                    miView.mostrarKilometros(matricula3, kmTotales);
                 } else {
-                    miView.mostrarErrorCocheNoEncontrado(matriculaAvanzar);
+                    miView.mostrarErrorCocheNoEncontrado(matricula3);
+                }
+                main(args);
+                break;
+
+            case 4:
+                String[] datosGasolina = miView.pedirDatosGasolina();
+                String matricula4 = datosGasolina[0];
+                if (miModel.getCoche(matricula4) != null) {
+                    double litros = Double.parseDouble(datosGasolina[1]);
+                    double litrosTotales = miModel.ponerGasolina(matricula4, litros);
+                    miView.mostrarGasolina(matricula4, litrosTotales);
+                } else {
+                    miView.mostrarErrorCocheNoEncontrado(matricula4);
                 }
                 main(args);
                 break;
